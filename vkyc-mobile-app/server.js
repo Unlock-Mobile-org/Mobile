@@ -5,7 +5,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;            
 const MAIN_BACKEND_URL = process.env.MAIN_BACKEND_URL || 'http://localhost:5000';
 
 // ===================================
@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ===================================
 
 // Configuration endpoint - for mobile app to get API URLs
-app.get('/api/config', (req, res) => {
+app.get('/config', (req, res) => {
   const hostname = req.hostname;
   const protocol = req.protocol;
   
@@ -64,7 +64,7 @@ app.get('/api/config', (req, res) => {
 });
 
 // Health check
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -75,7 +75,7 @@ app.get('/api/health', (req, res) => {
 // ===================================
 // PROXY CUSTOMER API TO MAIN BACKEND
 // ===================================
-app.post('/api/customer/initiate', async (req, res) => {
+app.post('/customer/initiate', async (req, res) => {
   try {
     console.log('📡 Proxying customer initiate to main backend');
     console.log('🔗 Target:', `${MAIN_BACKEND_URL}/v1/webrtc/customer/initiate`);
